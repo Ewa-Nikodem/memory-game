@@ -1,2 +1,2 @@
 ﻿# memory-game
-Practice JS with small memmory-game
+Practice JS with small memory-game
