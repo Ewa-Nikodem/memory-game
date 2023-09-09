@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     //card options
-    const cards = [
+    const cardArray = [
         {
             name:'harry',
             img:'src/images/hp.webp',
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ]
 
-    cards.sort(() => 0.5 - Math.random()) //random() gives back a random number between 0 and 1 
-    console.log(cards)
+    cardArray.sort(() => 0.5 - Math.random()) //random() gives back a random number between 0 and 1 
+    console.log(cardArray)
 
     const grid = document.querySelector('.grid');
 
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let cardsChosenIds = [];
 
     function createBoard() {
-        for (let i = 0; i < cards.length; i++){
+        for (let i = 0; i < cardArray.length; i++){
             const card = document.createElement('img');
             card.setAttribute('src', 'src/images/logo.webp');
             card.setAttribute('data-id', i);
@@ -70,13 +70,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flipCard(){
-        let cardId = this.getAttribute('data-id');
-        
-        cardsChosen.push(cards[cardId].name);
+        let cardId = this.getAttribute('data-id');       
+        cardsChosen.push(cardArray[cardId].name);
         cardsChosenIds.push(cardId);
-        this.setAttribute('src', cards[cardId].img)
+        this.setAttribute('src', cardArray[cardId].img);
+        if (cardsChosenIds.length === 2) {
+            setTimeout(checkForMatch, 500)
+        }
        
     }
+
+    function checkForMatch() {
+        const cards = document.querySelectorAll('img');
+        const optionOneId = cardsChosenIds[0];
+        const optionTwoId = cardsChosenIds[1]
+        if (optionOneId === optionTwoId) {
+            alert('You clicked the same card');
+            cards[optionOneId].setAttribute('src', 'src/images/logo.webp');
+        }
+    }
+
     createBoard()
+    
 
 })
